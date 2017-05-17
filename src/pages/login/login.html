@@ -19,9 +19,9 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <button ion-button full color="dark" type="submit" [disabled]="!loginForm.form.valid">Login</button>
-        <button ion-button block clear color="dark" (click)="signUp()">You don't have an account? Sign up.</button>
+        <button ion-button full type="submit" [disabled]="!loginForm.form.valid">Login</button>
       </ion-col>
     </ion-row>
   </form>
+  <button ion-button block clear color="dark" (click)="signUp()">You don't have an account? Sign up.</button>
 </ion-content>
