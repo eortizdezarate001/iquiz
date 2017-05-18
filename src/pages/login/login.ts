@@ -18,8 +18,14 @@ export class Login {
   loginData = {username: '', password: ''};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public loadingCtrl: LoadingController, public alertCtrl: AlertController, public http: Http, public storage: Storage) {
+              public loadingCtrl: LoadingController, public alertCtrl: AlertController, public http: Http, public storage: Storage) {  
 
+  }
+
+  ionViewDidLoad() {
+    this.storage.set('loginUsername', '');
+    this.storage.set('loginPoints', '');
+    this.storage.set('auth', false);
   }
 
   public signUp() {
@@ -37,9 +43,7 @@ export class Login {
         if( sha1(this.loginData.password) == data[0].password ){
           this.storage.set('loginUsername', data[0].username);
           this.storage.set('loginPoints', data[0].points);
-          this.storage.get('loginUsername').then((username) => {
-            console.log(username);
-          });
+          this.storage.set('auth', true);
           this.navCtrl.setRoot(HomePage);
         } else this.showError("Incorrect username or password.");
       }
