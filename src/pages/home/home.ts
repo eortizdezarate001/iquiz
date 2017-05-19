@@ -18,7 +18,8 @@ export class HomePage {
       if(auth === false)
         this.navCtrl.setRoot(Login);
     });
+
+    this.storage.get('loginUsername').then((username) => console.log("Welcome "+username+"!"));
+
   }
-
-
 }

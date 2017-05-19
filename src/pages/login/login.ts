@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, Loading, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Loading, AlertController, MenuController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
@@ -18,7 +18,8 @@ export class Login {
   loginData = {username: '', password: ''};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public loadingCtrl: LoadingController, public alertCtrl: AlertController, public http: Http, public storage: Storage) {  
+              public loadingCtrl: LoadingController, public alertCtrl: AlertController, 
+              public http: Http, public storage: Storage, public menu: MenuController) {  
 
   }
 
@@ -26,6 +27,7 @@ export class Login {
     this.storage.set('loginUsername', '');
     this.storage.set('loginPoints', '');
     this.storage.set('auth', false);
+    this.menu.swipeEnable(false,'menu');
   }
 
   public signUp() {

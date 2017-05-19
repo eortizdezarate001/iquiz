@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, Loading, AlertController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Loading, AlertController, ToastController, MenuController} from 'ionic-angular';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
@@ -15,9 +15,13 @@ export class SignUpPage {
 
 	constructor(public navCtrl: NavController, public navParams: NavParams,
               public loadingCtrl: LoadingController, public alertCtrl: AlertController,
-              public http: Http, public toastCtrl  : ToastController) {
+              public http: Http, public toastCtrl  : ToastController, public menu: MenuController) {
 
 	}
+
+  ionViewDidLoad() {
+    this.menu.swipeEnable(false,'menu');
+  }
 
 	public register(){
 		this.showLoading();
