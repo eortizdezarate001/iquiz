@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, Loading, AlertController, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Loading, AlertController, MenuController, Events } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
@@ -18,15 +18,12 @@ export class Login {
   loginData = {username: '', password: ''};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public loadingCtrl: LoadingController, public alertCtrl: AlertController, 
-              public http: Http, public storage: Storage, public menu: MenuController) {  
+              public loadingCtrl: LoadingController, public alertCtrl: AlertController,
+              public http: Http, public storage: Storage, public menu: MenuController, public event: Events) {
 
   }
 
   ionViewDidLoad() {
-    this.storage.set('loginUsername', '');
-    this.storage.set('loginPoints', '');
-    this.storage.set('auth', false);
     this.menu.swipeEnable(false,'menu');
   }
 
@@ -40,12 +37,16 @@ export class Login {
     .map(res => res.json())
     .subscribe(data => {
       if(data.length == 0){
-        this.showError("Incorrect username or password.")
+        this.showError("Incorrect username or password.");
       } else{
         if( sha1(this.loginData.password) == data[0].password ){
           this.storage.set('loginUsername', data[0].username);
+          this.storage.set('loginPassword', data[0].password)
           this.storage.set('loginPoints', data[0].points);
+          this.storage.set('loginStatus', data[0].status);
+          this.storage.set('loginAvatar', data[0].avatar);
           this.storage.set('auth', true);
+          this.event.publish('updateMenu');
           this.navCtrl.setRoot(HomePage);
         } else this.showError("Incorrect username or password.");
       }

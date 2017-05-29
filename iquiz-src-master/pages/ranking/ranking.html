@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Ranking</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+<ion-list>
+	<ion-item-sliding *ngFor ="let user of ranking">
+		<ion-item>
+	      <ion-avatar item-left>
+	        <h1> &nbsp; {{user.index}}</h1>
+	      </ion-avatar>
+	      <h2>{{user.username}}</h2>
+	      <p>{{user.status}}</p>
+        <ion-note item-end>{{user.points}} points</ion-note>
+	   </ion-item>
+	    <ion-item-options side="right">
+        <div *ngIf="user.isFriend">
+  	      <button ion-button color="danger" (click)="deleteFriend(user)">
+  	        <ion-icon name="trash"></ion-icon>
+  	        Delete friend
+  	      </button>
+        </div>
+        <div *ngIf="!user.isFriend && !user.isSelf">
+          <button ion-button color="secondary" (click)="addFriend(user)">
+  	        <ion-icon name="add"></ion-icon>
+  	        Add friend
+  	      </button>
+        </div>
+        <div *ngIf="user.isSelf">
+          <button ion-button color="light" (click)="settings()">
+  	        <ion-icon name="settings"></ion-icon>
+  	        Settings
+  	      </button>
+        </div>
+	    </ion-item-options>
+	</ion-item-sliding>
+</ion-list>
+
+</ion-content>
+
+
+
+  <ion-item-sliding>
+
+  </ion-item-sliding>
